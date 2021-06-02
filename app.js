@@ -74,6 +74,15 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// delete todo data
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .then(todo => todo.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // starts the express server and listening for connections.
 app.listen(port, () => {
   console.log(`Express app listening on port ${port}.`)
