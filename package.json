@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-    "seed"： "node models/seeds/todoSeeder.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node models/seeds/todoSeeder.js"
   },
   "keywords": [],
   "author": "",
