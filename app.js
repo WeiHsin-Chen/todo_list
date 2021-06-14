@@ -2,11 +2,12 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const app = express()
-const port = 3000
 const bodyParser = require('body-parser')
 const Todo = require('./models/todo') // 載入 Todo model
 const methodOverride = require('method-override')  // 載入 method-override
 const routes = require('./routes')    // 引用路由器
+
+const PORT = process.env.PORT || 3000
 
 // connect mongoose with ./config/mongoose
 require('./config/mongoose')
@@ -26,6 +27,6 @@ app.use(routes)
 
 
 // starts the express server and listening for connections.
-app.listen(port, () => {
-  console.log(`Express app listening on port ${port}.`)
+app.listen(PORT, () => {
+  console.log(`Express app listening on port ${PORT}.`)
 })
