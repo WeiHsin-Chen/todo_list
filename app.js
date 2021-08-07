@@ -24,11 +24,17 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(methodOverride('_method'))
 
+// 導入express-session
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
+
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 usePassport(app)
 
 app.use((req, res, next) => {
-  // console.log(req.user)
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
   next()
@@ -36,13 +42,6 @@ app.use((req, res, next) => {
 
 // 將 request 導入路由器
 app.use(routes)
-
-// 導入express-session
-app.use(session({
-  secret: 'ThisIsMySecret',
-  resave: false,
-  saveUninitialized: true
-}))
 
 // starts the express server and listening for connections.
 app.listen(PORT, () => {
