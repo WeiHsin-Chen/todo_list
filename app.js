@@ -1,5 +1,6 @@
 // include packages and define server related variables
 const express = require('express')
+const session = require('express-session')  //載入session功能
 const exphbs = require('express-handlebars')
 const app = express()
 const bodyParser = require('body-parser')
@@ -25,6 +26,12 @@ app.use(methodOverride('_method'))
 // 將 request 導入路由器
 app.use(routes)
 
+// 導入express-session
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // starts the express server and listening for connections.
 app.listen(PORT, () => {
