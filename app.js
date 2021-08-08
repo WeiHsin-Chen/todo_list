@@ -4,13 +4,17 @@ const session = require('express-session')  //載入session功能
 const exphbs = require('express-handlebars')
 const app = express()
 const bodyParser = require('body-parser')
-const Todo = require('./models/todo') // 載入 Todo model
 const methodOverride = require('method-override')  // 載入 method-override
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+const Todo = require('./models/todo') // 載入 Todo model
 const routes = require('./routes')    // 引用路由器
 const usePassport = require('./config/passport')  // 載入設定檔，要寫在 express-session 以後
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 
 // connect mongoose with ./config/mongoose
 require('./config/mongoose')
@@ -27,7 +31,7 @@ app.use(methodOverride('_method'))
 
 // 導入express-session
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
